@@ -30,7 +30,7 @@ public class CardDeliveryFormTest {
         $("[data-test-id='phone'] input").setValue("+71234567891");
         $("[data-test-id='agreement']").click();
         $("[role='button'].button").click();
-        $("[data-test-id='notification']")
+        $("[data-test-id='notification'] .notification__content")
                 .shouldBe(Condition.visible, Duration.ofSeconds(15))
                 .shouldBe(Condition.text("Встреча успешно забронирована на " + planningDate));
 
