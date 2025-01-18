@@ -23,14 +23,16 @@ public class CardDeliveryFormTest {
     void shoudlBookCardDelivery() {
         String planningDate = generateDate(3, "dd.MM.yyyy");
         Selenide.open("http://localhost:9999");
-        $("[data-test-id='city'] > span > span.input__box > input").setValue("Ставрополь");
-        $("[data-test-id='date'] > span > span > span > span.input__box > input").press(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] > span > span > span > span.input__box > input").setValue(planningDate);
-        $("[data-test-id='name'] > span > span.input__box > input").setValue("Петров Иван");
-        $("[data-test-id='phone'] > span > span.input__box > input").setValue("+71234567891");
+        $("[data-test-id='city'] input").setValue("Ставрополь");
+        $("[data-test-id='date'] input").press(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(planningDate);
+        $("[data-test-id='name'] input").setValue("Петров Иван");
+        $("[data-test-id='phone'] input").setValue("+71234567891");
         $("[data-test-id='agreement']").click();
         $("[role='button'].button").click();
-        $("[data-test-id='notification']").shouldBe(Condition.visible, Duration.ofSeconds(15));
+        $("[data-test-id='notification']")
+                .shouldBe(Condition.visible, Duration.ofSeconds(15))
+                .shouldBe(Condition.text("Встреча успешно забронирована на " + planningDate));
 
     }
 }
